@@ -31,7 +31,7 @@ jobs:
         flake8
     - name: 🔍 Coverage report
       run: |
-        pipe install coverage
+        pip install coverage
         coverage run manage.py test
         coverage report
     - name: 🐍 jango Tests
