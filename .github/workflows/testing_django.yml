@@ -27,7 +27,7 @@ jobs:
         pip install -r requirements.txt
     - name: ✏️ Lint with flake8
       run: |
-        pipe install flake8
+        pip install flake8
         flake8
     - name: 🔍 Coverage report
       run: |
