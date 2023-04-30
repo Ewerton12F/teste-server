@@ -2,9 +2,7 @@ from .base import *
 
 import os
 
-env = os.environ.get
-
-ALLOWED_HOSTS = ["teste-server-production.py.up.railway.app/", "127.0.0.1"]
+ALLOWED_HOSTS = ["teste-server-production.up.railway.app"]
 
 ENGINE = env("ENGINE")
 NAME = env("NAME")
