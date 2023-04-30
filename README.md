@@ -26,7 +26,7 @@ The back-end is developed using Django Rest Framework to provide an API which wi
 
 @ Phase 5 - Document the API endpoints to support frontend interactions 
 
-## Modularizing Django Settings
+## Build: Configuring Multiple Settings Files
 
 The settings will be divided in other files because this application will be runing in ours machines and a server when deployed.
 
@@ -41,7 +41,7 @@ So we want to tell Django to find settings as shows:
 ├── settings
 │   ├── base.py
 │   ├── local.py
-│   └── production.py 
+│   └── production.py.py 
 .
 ```
 
@@ -52,7 +52,14 @@ def main():
     if base.DEBUG:
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.local")
     else:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.production")
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.production.py")
+```
+
+In `core.urls` we determine which configuration use for each environment.
+
+```python
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
 ### `local.py`

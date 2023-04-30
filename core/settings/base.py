@@ -1,20 +1,28 @@
-import os
+from dotenv import load_dotenv
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+import os
+
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+env = os.environ.get
 
-
-# Quick-start development settings - unsuitable for production
+# Quick-start development settings - unsuitable for production.py
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-mz-ybc%v5cua9#$mc2$ebkrnwjqsz=o&#bb6(c4*3b-^2_5v$-"
+# SECURITY WARNING: keep the secret key used in production.py secret!
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# SECURITY WARNING: don't run with debug turned on in production.py!
+DEBUG = False
 
-ALLOWED_HOSTS = ['teste-server-production.up.railway.app/', '127.0.0.1']
+SECRET_KEY = env("SECRET_KEY")
+ENGINE = env("ENGINE")
+NAME = env("NAME")
+USER = "postgres"
+PASSWORD = env("PASSWORD")
+HOST = env("HOST")
+PORT = env("PORT")
 
 # Application definition
 
@@ -26,10 +34,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "api",
-
+    "corsheaders",
+    "rest_framework",
+    "rest_framework.authentication",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -59,14 +70,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
-    "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3"}
+    "default": {
+        "ENGINE": ENGINE,
+        "NAME": NAME,
+        "USER": USER,
+        "PASSWORD": PASSWORD,
+        "HOST": HOST,
+        "PORT": PORT,
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -97,10 +110,31 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-STATICFILES_DIR = [os.path.join(BASE_DIR, "static"), ]
+STATIC_ROOT = os.path.join(BASE_DIR, "../../staticfiles")
+STATICFILES_DIR = [
+    os.path.join(BASE_DIR, "static"),
+]
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ]
+}
+
+# Secure Cookies
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# HSTS (Http Strict Transport Security
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+SECURE_SSL_REDIRECT = True
