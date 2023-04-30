@@ -2,3 +2,4 @@
 max-line-length = 119
 exclude = .git,*migrations*,*venv*
 extend-ignore = E203
+ignore = F403, F401

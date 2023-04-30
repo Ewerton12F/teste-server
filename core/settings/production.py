@@ -2,16 +2,15 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["teste-server-production.py.up.railway.app/", "127.0.0.1"]
+ALLOWED_HOSTS = ["teste-server-production.py.up.railway.app/"]
 
-DATABASES = {
-    "default": {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "railway",
-        "USER": "postgres",
-        "PASSWORD": "N0xDAZu2MT19tYhFMcEK",
-        "HOST": "containers-us-west-5.railway.app",
-        "PORT": "6164",
-    }
-}
+# Secure Cookies
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# HSTS (Http Strict Transport Security
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+SECURE_SSL_REDIRECT = True

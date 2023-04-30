@@ -14,7 +14,7 @@ env = os.environ.get
 # SECURITY WARNING: keep the secret key used in production.py secret!
 
 # SECURITY WARNING: don't run with debug turned on in production.py!
-DEBUG = False
+DEBUG = True
 
 SECRET_KEY = env("SECRET_KEY")
 ENGINE = env("ENGINE")
@@ -128,13 +128,3 @@ REST_FRAMEWORK = {
     ]
 }
 
-# Secure Cookies
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
-# HSTS (Http Strict Transport Security
-SECURE_HSTS_SECONDS = 31536000
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-
-SECURE_SSL_REDIRECT = True
