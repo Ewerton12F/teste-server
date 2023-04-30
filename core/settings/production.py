@@ -1,7 +1,5 @@
 from .base import *
 
-import os
-
 ALLOWED_HOSTS = ["teste-server-production.up.railway.app"]
 
 ENGINE = env("ENGINE")
