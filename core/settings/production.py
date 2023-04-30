@@ -18,6 +18,7 @@ DATABASES = {
         "HOST": HOST,
         "PORT": PORT,
         "TEST": {
+            "ENGINE": "django.db.backends.sqlite3",
             "NAME": "railway",
         },
     }
