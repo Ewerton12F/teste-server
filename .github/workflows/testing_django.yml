@@ -38,7 +38,7 @@ jobs:
         pip install isort
         isort .
     - name: 🔍 Coverage report
-      env: |
+      env:
         ENGINE: ${{ secrets.ENGINE }}
         NAME: ${{ secrets.NAME }}
         USER: ${{ secrets.USER }}
