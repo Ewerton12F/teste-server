@@ -38,10 +38,6 @@ jobs:
         pip install isort
         isort .
     - name: 🔍 Coverage report
-      run: |
-        pip install coverage
-        coverage run manage.py test
-        coverage report
       env: |
         ENGINE: ${{ secrets.ENGINE }}
         NAME: ${{ secrets.NAME }}
@@ -49,6 +45,10 @@ jobs:
         PASSWORD: ${{ secrets.PASSWORD }}
         HOST: ${{ secrets.HOST }}
         PORT: ${{ secrets.PORT }}
+      run: |
+        pip install coverage
+        coverage run manage.py test
+        coverage report
     - name: 🐍 Django Tests
       run: |
         python3 manage.py test
