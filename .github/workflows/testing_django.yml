@@ -25,6 +25,22 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - name: 🛣️ Display the path
+      env: |
+        ENGINE: ${{ secrets.ENGINE }}
+        NAME: ${{ secrets.NAME }}
+        USER: ${{ secrets.USER }}
+        PASSWORD: ${{ secrets.PASSWORD }}
+        HOST: ${{ secrets.HOST }}
+        PORT: ${{ secrets.PORT }}
+      run: |
+        import os
+        print(os.environ['ENGINE'])
+        print(os.environ['NAME'])
+        print(os.environ['USER'])
+        print(os.environ['PASSWORD'])
+        print(os.environ['HOST'])
+        print(os.environ['PORT'])
     - name: ✏️ Lint with flake8
       run: |
         pip install flake8
