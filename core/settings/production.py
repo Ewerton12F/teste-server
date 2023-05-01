@@ -1,12 +1,10 @@
 from .base import *
 
-import os
-
 ALLOWED_HOSTS = ["teste-server-production.up.railway.app"]
 
 ENGINE = env("ENGINE")
 NAME = env("NAME")
-USER = "postgres"
+USER = env("USER")
 PASSWORD = env("PASSWORD")
 HOST = env("HOST")
 PORT = env("PORT")

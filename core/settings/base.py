@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
 
-DEBUG = True
+DEBUG = False
 
 SECRET_KEY = env("SECRET_KEY")
 
