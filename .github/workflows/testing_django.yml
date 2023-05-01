@@ -9,6 +9,14 @@ on:
 jobs:
   build:
     environment: .env
+    env:
+      ENGINE: ${{ secrets.ENGINE }}
+      NAME: ${{ secrets.NAME }}
+      USER: ${{ secrets.USER }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      HOST: ${{ secrets.HOST }}
+      PORT: ${{ secrets.PORT }}
+
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -25,37 +33,19 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: ✏️ Lint with flake8
-      run: |
-        pip install flake8
-        flake8
     - name: ⬛ Lint with black
       run: |
-        pip install black
         black .
     - name: 📃 Lint with isort
       run: |
-        pip install isort
         isort .
-    - name: 🔍 Coverage report
-      env:
-        ENGINE: ${{ secrets.ENGINE }}
-        NAME: ${{ secrets.NAME }}
-        USER: ${{ secrets.USER }}
-        PASSWORD: ${{ secrets.PASSWORD }}
-        HOST: ${{ secrets.HOST }}
-        PORT: ${{ secrets.PORT }}
+    - name: ✏️ Lint with flake8
       run: |
-        pip install coverage
+        flake8
+    - name: 🔍 Coverage report
+      run: |
         coverage run manage.py test
         coverage report
     - name: 🐍 Django Tests
-      env:
-        ENGINE: ${{ secrets.ENGINE }}
-        NAME: ${{ secrets.NAME }}
-        USER: ${{ secrets.USER }}
-        PASSWORD: ${{ secrets.PASSWORD }}
-        HOST: ${{ secrets.HOST }}
-        PORT: ${{ secrets.PORT }}
       run: |
         python3 manage.py test
