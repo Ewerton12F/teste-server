@@ -1,7 +1,5 @@
 from .base import *
 
-ALLOWED_HOSTS = ["teste-server-production.up.railway.app"]
-
 ENGINE = env("ENGINE")
 NAME = env("NAME")
 USER = env("USER")
@@ -20,6 +18,6 @@ DATABASES = {
     }
 }
 
-SECURE_SSL_REDIRECT = False
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
