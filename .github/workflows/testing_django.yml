@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-
+    environment: .env
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -37,11 +37,25 @@ jobs:
       run: |
         pip install isort
         isort .
-#    - name: 🔍 Coverage report
-#      run: |
-#        pip install coverage
-#        coverage run manage.py test
-#        coverage report
-#    - name: 🐍 Django Tests
-#      run: |
-#        python3 manage.py test
+    - name: 🔍 Coverage report
+      env:
+        ENGINE: ${{ secrets.ENGINE }}
+        NAME: ${{ secrets.NAME }}
+        USER: ${{ secrets.USER }}
+        PASSWORD: ${{ secrets.PASSWORD }}
+        HOST: ${{ secrets.HOST }}
+        PORT: ${{ secrets.PORT }}
+      run: |
+        pip install coverage
+        coverage run manage.py test
+        coverage report
+    - name: 🐍 Django Tests
+      env:
+        ENGINE: ${{ secrets.ENGINE }}
+        NAME: ${{ secrets.NAME }}
+        USER: ${{ secrets.USER }}
+        PASSWORD: ${{ secrets.PASSWORD }}
+        HOST: ${{ secrets.HOST }}
+        PORT: ${{ secrets.PORT }}
+      run: |
+        python3 manage.py test
