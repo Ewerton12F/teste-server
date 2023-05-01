@@ -22,7 +22,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: List of the GitHub Actions environment variables on Windows
-      run: env
+      run: echo ${{secrets.ENGINE}}
     - name: 📦 Install Dependencies
       run: |
         python -m pip install --upgrade pip
