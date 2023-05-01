@@ -1,5 +1,7 @@
 from .base import *
 
+load_dotenv()
+
 ALLOWED_HOSTS = ["teste-server-production.up.railway.app", "127.0.0.1"]
 
 ENGINE = env("ENGINE")
