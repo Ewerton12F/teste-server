@@ -1,16 +1,27 @@
 from .base import *
 
-DEBUG = False
+import os
 
 ALLOWED_HOSTS = ["teste-server-production.up.railway.app"]
 
-# Secure Cookies
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+ENGINE = env("ENGINE")
+NAME = env("NAME")
+USER = "postgres"
+PASSWORD = env("PASSWORD")
+HOST = env("HOST")
+PORT = env("PORT")
 
-# HSTS (Http Strict Transport Security
-SECURE_HSTS_SECONDS = 31536000
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+DATABASES = {
+    "default": {
+        "ENGINE": ENGINE,
+        "NAME": NAME,
+        "USER": USER,
+        "PASSWORD": PASSWORD,
+        "HOST": HOST,
+        "PORT": PORT,
+    }
+}
 
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
