@@ -1,6 +1,6 @@
 from .base import *
 
-ALLOWED_HOSTS = ["teste-server-production.up.railway.app"]
+ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = ["https://teste-server-production.up.railway.app"]
 
 # Secure Cookies
