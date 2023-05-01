@@ -50,5 +50,12 @@ jobs:
         coverage run manage.py test
         coverage report
     - name: 🐍 Django Tests
+      env:
+        ENGINE: ${{ secrets.ENGINE }}
+        NAME: ${{ secrets.NAME }}
+        USER: ${{ secrets.USER }}
+        PASSWORD: ${{ secrets.PASSWORD }}
+        HOST: ${{ secrets.HOST }}
+        PORT: ${{ secrets.PORT }}
       run: |
         python3 manage.py test
