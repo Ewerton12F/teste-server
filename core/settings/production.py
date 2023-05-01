@@ -1,5 +1,7 @@
 from .base import *
 
+DEBUG = True
+
 ENGINE = env("ENGINE")
 NAME = env("NAME")
 USER = env("USER")
