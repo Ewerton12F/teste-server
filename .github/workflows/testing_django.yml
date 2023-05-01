@@ -17,7 +17,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: 🔧 Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
@@ -29,6 +29,14 @@ jobs:
       run: |
         pip install flake8
         flake8
+    - name: ⬛ Lint with black
+      run: |
+        pip install black
+        black .
+    - name: 📃 Lint with isort
+      run: |
+        pip install isort
+        isort .
     - name: 🔍 Coverage report
       run: |
         pip install coverage
