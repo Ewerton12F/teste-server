@@ -11,7 +11,7 @@ load_dotenv()
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["teste-server-production.up.railway.app/"]
+ALLOWED_HOSTS = ["*"]
 
 SECRET_KEY = env("SECRET_KEY")
 
