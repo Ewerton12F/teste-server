@@ -1,7 +1,5 @@
 from .base import *
 
-ALLOWED_HOSTS = ["teste-server-production.up.railway.app/"]
-
 ENGINE = env("ENGINE")
 NAME = env("NAME")
 USER = env("USER")
