@@ -21,8 +21,6 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-    - name: List of the GitHub Actions environment variables on Windows
-      run: echo ${{secrets.ENGINE}}
     - name: 📦 Install Dependencies
       run: |
         python -m pip install --upgrade pip
@@ -40,6 +38,13 @@ jobs:
         pip install isort
         isort .
     - name: 🔍 Coverage report
+      env: |
+        ENGINE: ${{ secrets.ENGINE }}
+        NAME: ${{ secrets.NAME }}
+        USER: ${{ secrets.USER }}
+        PASSWORD: ${{ secrets.PASSWORD }}
+        HOST: ${{ secrets.HOST }}
+        PORT: ${{ secrets.PORT }}
       run: |
         pip install coverage
         coverage run manage.py test
