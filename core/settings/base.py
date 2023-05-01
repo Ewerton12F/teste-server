@@ -3,11 +3,11 @@ from pathlib import Path
 
 import os
 
+load_dotenv()
+
 env = os.environ.get
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-load_dotenv()
 
 DEBUG = False
 
