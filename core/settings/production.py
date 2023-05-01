@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["teste-server-production.py.up.railway.app/"]
+ALLOWED_HOSTS = ["teste-server-production.up.railway.app"]
 
 # Secure Cookies
 SESSION_COOKIE_SECURE = True
