@@ -8,7 +8,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://teste-server-production.up.railway.app",
 ]
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = env("DATABASE_URL")
 
 DATABASES = {
     "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
