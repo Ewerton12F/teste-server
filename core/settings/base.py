@@ -1,13 +1,14 @@
 from dotenv import load_dotenv
 from pathlib import Path
 
+import dj_database_url
 import os
 
-load_dotenv()
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 env = os.environ.get
-
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
@@ -107,3 +108,14 @@ REST_FRAMEWORK = {
 }
 
 SECURE_SSL_REDIRECT = False
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://teste-server-production.up.railway.app/",
+    "https://teste-server-production.up.railway.app",
+]
+
+DATABASE_URL = env("DATABASE_URL")
+
+DATABASES = {
+    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+}
