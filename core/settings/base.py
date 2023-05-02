@@ -11,6 +11,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
+ALLOWED_HOSTS = ["*"]
+
 SECRET_KEY = env("SECRET_KEY")
 
 INSTALLED_APPS = [
