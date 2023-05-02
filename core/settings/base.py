@@ -2,15 +2,13 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 import dj_database_url
-import environ
 import os
 
+load_dotenv()
+
+env = os.environ.get
+
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-load_dotenv(os.path.join(BASE_DIR, ".env"))
-
-env = environ.Env()
-environ.Env.read_env()
 
 DEBUG = True
 
