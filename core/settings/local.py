@@ -1,27 +1,17 @@
 from .base import *
 
+import dj_database_url
+
 ALLOWED_HOSTS = ["teste-server-production.up.railway.app"]
 CSRF_TRUSTED_ORIGINS = [
     "http://teste-server-production.up.railway.app/",
     "https://teste-server-production.up.railway.app",
 ]
 
-ENGINE = os.getenv("ENGINE")
-NAME = os.getenv("NAME")
-USER = os.getenv("USER")
-PASSWORD = os.getenv("PASSWORD")
-HOST = os.getenv("HOST")
-PORT = os.getenv("PORT")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 DATABASES = {
-    "default": {
-        "ENGINE": ENGINE,
-        "NAME": NAME,
-        "USER": USER,
-        "PASSWORD": PASSWORD,
-        "HOST": HOST,
-        "PORT": PORT,
-    }
+    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
 }
 
 SECURE_SSL_REDIRECT = True
