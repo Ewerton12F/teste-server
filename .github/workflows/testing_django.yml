@@ -10,6 +10,7 @@ jobs:
   build:
     environment: .env
     env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
       ENGINE: ${{ secrets.ENGINE }}
       NAME: ${{ secrets.NAME }}
       USER: ${{ secrets.USER }}
