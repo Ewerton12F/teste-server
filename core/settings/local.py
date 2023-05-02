@@ -1,11 +1,29 @@
 from .base import *
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["teste-server-production.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://teste-server-production.up.railway.app/",
+    "https://teste-server-production.up.railway.app/",
+]
+
+ENGINE = env("ENGINE")
+NAME = env("NAME")
+USER = env("USER")
+PASSWORD = env("PASSWORD")
+HOST = env("HOST")
+PORT = env("PORT")
 
 DATABASES = {
-    "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3"}
+    "default": {
+        "ENGINE": ENGINE,
+        "NAME": NAME,
+        "USER": USER,
+        "PASSWORD": PASSWORD,
+        "HOST": HOST,
+        "PORT": PORT,
+    }
 }
 
-SECURE_SSL_REDIRECT = False
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
