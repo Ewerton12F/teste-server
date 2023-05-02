@@ -2,13 +2,15 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 import dj_database_url
+import environ
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(os.path.join(BASE_DIR, ".env"))
 
-env = os.environ.get
+env = environ.Env()
+environ.Env.read_env()
 
 DEBUG = True
 
@@ -39,6 +41,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://teste-server-production.up.railway.app/",
+    "https://teste-server-production.up.railway.app",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -108,11 +115,6 @@ REST_FRAMEWORK = {
 }
 
 SECURE_SSL_REDIRECT = False
-
-CSRF_TRUSTED_ORIGINS = [
-    "http://teste-server-production.up.railway.app/",
-    "https://teste-server-production.up.railway.app",
-]
 
 DATABASE_URL = env("DATABASE_URL")
 
