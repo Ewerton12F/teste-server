@@ -16,6 +16,12 @@ ALLOWED_HOSTS = [
     "*",
 ]
 
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
+
 SECRET_KEY = env("SECRET_KEY")
 
 INSTALLED_APPS = [
@@ -28,6 +34,7 @@ INSTALLED_APPS = [
     "api",
     "sslserver",
     "corsheaders",
+    "debug_toolbar",
     "rest_framework",
     "rest_framework.authentication",
 ]
@@ -41,6 +48,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
