@@ -5,7 +5,6 @@ coverage==7.2.4
 dj-database-url==2.0.0
 Django==4.2
 django-cors-headers==3.14.0
-django-environ==0.10.0
 django-sslserver==0.22
 djangorestframework==3.14.0
 flake8==6.0.0
@@ -21,6 +20,7 @@ psycopg==3.1.9
 psycopg-binary==3.1.9
 pycodestyle==2.10.0
 pyflakes==3.0.1
+python-dotenv==1.0.0
 pytz==2023.3
 sqlparse==0.4.4
 typing_extensions==4.5.0
