@@ -1,3 +1,4 @@
+from decouple import config
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -10,7 +11,7 @@ env = os.environ.get
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = eval(env("DEBUG"))
+DEBUG = config("DEBUG", default=False, cast=bool)
 SECRET_KEY = env("SECRET_KEY")
 
 ALLOWED_HOSTS = []
