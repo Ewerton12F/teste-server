@@ -12,6 +12,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = False
 
+ALLOWED_HOSTS = ["teste-server-production.up.railway.app"]
+
+CSRF_TRUSTED_ORIGINS = ["https://teste-server-production.up.railway.app"]
+
 SECRET_KEY = env("SECRET_KEY")
 
 INSTALLED_APPS = [
