@@ -10,11 +10,9 @@ env = os.environ.get
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = False
+DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ["teste-server-production.up.railway.app"]
-
-CSRF_TRUSTED_ORIGINS = ["https://teste-server-production.up.railway.app"]
+ALLOWED_HOSTS = []
 
 SECRET_KEY = env("SECRET_KEY")
 
