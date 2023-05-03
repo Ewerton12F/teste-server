@@ -11,10 +11,10 @@ env = os.environ.get
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = env("DEBUG")
+SECRET_KEY = env("SECRET_KEY")
 
 ALLOWED_HOSTS = []
-
-SECRET_KEY = env("SECRET_KEY")
+CSRF_TRUSTED_ORIGINS = []
 
 INSTALLED_APPS = [
     "django.contrib.admin",
