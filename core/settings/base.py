@@ -103,5 +103,3 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ]
 }
-
-SECURE_SSL_REDIRECT = False
