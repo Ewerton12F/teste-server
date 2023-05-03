@@ -13,7 +13,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "*",
+    "teste-server-production.up.railway.app",
+]
+
+INTERNAL_IPS = [
+    "127.0.0.1",
 ]
 
 INTERNAL_IPS = [
