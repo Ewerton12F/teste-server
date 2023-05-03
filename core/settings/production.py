@@ -1,9 +1,7 @@
 from .base import *
 
 ALLOWED_HOSTS += [HOST]
-
 CSRF_TRUSTED_ORIGINS += [f"https://{HOST}"]
-print(CSRF_TRUSTED_ORIGINS)
 
 # SECURE_SSL_REDIRECT = True
 # SESSION_COOKIE_SECURE = True
