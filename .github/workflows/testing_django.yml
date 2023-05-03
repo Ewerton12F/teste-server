@@ -9,9 +9,6 @@ on:
 jobs:
   build:
     environment: .env
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4

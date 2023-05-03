@@ -14,6 +14,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = config("DEBUG", default=False, cast=bool)
 SECRET_KEY = env("SECRET_KEY")
 
+HOST = env("HOST")
+
 ALLOWED_HOSTS = []
 CSRF_TRUSTED_ORIGINS = []
 
