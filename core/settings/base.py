@@ -10,21 +10,7 @@ env = os.environ.get
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = True
-
-ALLOWED_HOSTS = [
-    "teste-server-production.up.railway.app",
-]
-
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
-
-INTERNAL_IPS = [
-    # ...
-    "127.0.0.1",
-    # ...
-]
+DEBUG = False
 
 SECRET_KEY = env("SECRET_KEY")
 
@@ -38,7 +24,6 @@ INSTALLED_APPS = [
     "api",
     "sslserver",
     "corsheaders",
-    "debug_toolbar",
     "rest_framework",
     "rest_framework.authentication",
 ]
@@ -52,12 +37,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
-]
-
-CSRF_TRUSTED_ORIGINS = [
-    "http://teste-server-production.up.railway.app/",
-    "https://teste-server-production.up.railway.app",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -80,8 +59,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+DATABASE_URL = env("DATABASE_URL")
+
+DATABASES = {
+    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -92,9 +74,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -102,9 +81,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "../../staticfiles")
@@ -115,9 +91,6 @@ STATICFILES_DIR = [
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media/"
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
@@ -127,9 +100,3 @@ REST_FRAMEWORK = {
 }
 
 SECURE_SSL_REDIRECT = False
-
-DATABASE_URL = env("DATABASE_URL")
-
-DATABASES = {
-    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
-}
