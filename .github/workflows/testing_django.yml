@@ -11,12 +11,6 @@ jobs:
     environment: .env
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      ENGINE: ${{ secrets.ENGINE }}
-      NAME: ${{ secrets.NAME }}
-      USER: ${{ secrets.USER }}
-      PASSWORD: ${{ secrets.PASSWORD }}
-      HOST: ${{ secrets.HOST }}
-      PORT: ${{ secrets.PORT }}
 
     runs-on: ubuntu-latest
     strategy:
