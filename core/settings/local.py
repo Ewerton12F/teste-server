@@ -1,6 +1,6 @@
 from .base import *
 
-ALLOWED_HOSTS += HOST
+ALLOWED_HOSTS += [HOST]
 
 INTERNAL_IPS = ALLOWED_HOSTS
 
