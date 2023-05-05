@@ -10,8 +10,8 @@ I deployed the Next.js website on a Vercel server. You can access [here][vercel]
 
 ## Index
 
-* [Get Started](#run)
-  * [Configuring enviorement variables](#configuring-enviorement-variables) 
+* [Get Started](#get-started)
+  * [Configuring environment variables](#configuring-enviorement-variables) 
   * [Secret key generation](#secret-key-generation) 
   * [Run](#run)
 * [Django](#django)
