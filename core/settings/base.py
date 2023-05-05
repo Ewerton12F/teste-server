@@ -12,12 +12,13 @@ env = os.environ.get
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = config("DEBUG", default=False, cast=bool)
-SECRET_KEY = env("SECRET_KEY")
-
 HOST = env("HOST")
+SECRET_KEY = env("SECRET_KEY")
+DATABASE_URL = env("DATABASE_URL")
 
-ALLOWED_HOSTS = []
-CSRF_TRUSTED_ORIGINS = []
+ALLOWED_HOSTS = [HOST]
+CSRF_TRUSTED_ORIGINS = [f"https://.{HOST}"]
+CORS_ORIGIN_WHITELIST = (f"https://{HOST}", "https://test-website-ecru.vercel.app")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -25,6 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "api",
     "sslserver",
@@ -36,6 +38,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -64,8 +67,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-DATABASE_URL = env("DATABASE_URL")
-
 DATABASES = {
     "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
 }
@@ -88,11 +89,11 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "../../staticfiles")
+STATIC_ROOT = os.path.join(BASE_DIR, "../static")
 STATICFILES_DIR = [
     os.path.join(BASE_DIR, "static"),
 ]
-
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media/"
 
