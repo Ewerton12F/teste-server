@@ -1,32 +1,149 @@
-# <p align="center">🚧 Under construction 🚧</p>
+# Hello
 
-<p align="center">I will be updating this page during the week.</p>
+This is the basis of a Django+Postgres+Next.js private project. You can use for building you own app. Give a look above for more details.
 
---- 
+## Railway + Vercel
 
-# Hello!
+I deployed the Django+Postgres on a Railway server. You can access the API [here][railway].
 
-I deployed this website on a Vercel server. You can access [here][vercel].
+I deployed the Next.js website on a Vercel server. You can access [here][vercel]. The Github repository can be found [here][next-repo].
 
-I deployed this website on a Vercel server. You can access [here][vercel].
+## Index
 
-The back-end is developed using Django Rest Framework to provide an API which will be consumed by the Next.JS front-end application.
+* [Get Started](#run)
+  * [Configuring enviorement variables](#configuring-enviorement-variables) 
+  * [Secret key generation](#secret-key-generation) 
+  * [Run](#run)
+* [Django](#django)
+  * [Configuring Multiple Settings Files](#configuring-multiple-settings-files)
+  * [WSGI](#wsgi)
+    * [Gunicorn](#gunicorn)
+* [Django Rest Framework](#django-rest-framework)
+  * [Routers](#routers)
+  * [Serializers](#serializers)
+  * [API endpoints](#api-endpoints)
+* [Best practices](#best-practices)
+  * [black](#black)
+  * [isort](#isort)
+  * [flake8](#flake8)
+* [Security](#security)
+  * [SSL](#ssl)
+* [Tests](#tests)
+  * [Coverage](#coverage)
+* [PostgreSQL](#postgresql) 
+  * [psycopg2](#psycopg2) 
+  * [dj-database-url](#dj-database-url) 
+* [CI/CD](#ci-cd)
+  * [Github Actions](#github-actions)
+  * [Railway deployment](#railway-deployment)
 
----
+## Get Started
 
-# Django
+First things comes first, download the repository to your machine and enter the folder:
 
-@ Phase 1 - Design, Implement and iterate over a complex database schema
+```bash
+git clone git@github.com:Ewerton12F/teste-server.git
+cd teste-server
+```
 
-@ Phase 2 - Implement Routers Vieewsets and Serializers to create API endpoints for clients interactions
+Create a virtual environment and activate it:
 
-@ Phase 3 - Implement serializer custumizations to customize data output
+```bash
+python -m venv venv
+source venv/bin/activate
+```
 
-@ Phase 4 - Buid unit and end-to-end tests to ensure the application works as intended
+Now you have to install the the dependencies in `requirements.txt` and `requirements-dev.txt` files:
 
-@ Phase 5 - Document the API endpoints to support frontend interactions 
+```bash
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+```
 
-## Build: Configuring Multiple Settings Files
+### Configuring environment variables
+
+We're gona use environment variables to set up our Django project.
+
+Now that we have done the Run step we must configure the environment variables. Those are:
+
+```bash
+DEBUG=DEBUG
+HOST=HOST
+SECRET_KEY=SECRET_KEY
+DATABASE_URL=DATABASE_URL
+```
+
+You can use the example file [`.env_example`](.env_example) in the root and change the variables values. Don't forget to rename the file to `.env`.
+
+We're gona use `dotenv` and `decouple` package to manage our environment variables.
+
+In `base.py` file I will set this configuration:
+
+```python
+from decouple import config
+from dotenv import load_dotenv
+
+import os
+
+load_dotenv()
+
+env = os.environ.get
+
+DEBUG = config("DEBUG", default=False, cast=bool)
+HOST = env("HOST")
+SECRET_KEY = env("SECRET_KEY")
+DATABASE_URL = env("DATABASE_URL")
+```
+
+* In `DEBUG` we must set the variable to `True` if we're working locally - it's gona trigger some features to help on debuging. To production we must set it to `False`. 
+* The `HOST` can set to `127.0.0.1` if we're working locally. To production we must set it to `changethisdomain.com`.
+* The `DATABASE_URL` must follow this patern `postgresql://{USER}:{PASSWORD}@{HOST}:{PORT}/{NAME}`.
+* Use some tool to generate your own `SECRET_KEY`, like the one above here.
+
+### Secret key generation
+
+We are gona add our own secret key. Python brings a built-in tool which enables us to generate a secret key.
+
+In [Django Github repository][django-repo] we can find a function that`s going to provide a way of generating a random key.
+
+To create a secret key we need to access the python shell using the command:
+
+```bash
+$ python3 manage.py shell
+```
+
+And then:
+
+```bash
+$ from django.core.management.utils import get_random_secret_key
+$ print(get_random_secret_key())
+```
+
+And we're a gona get something like this:
+
+```bash
+0v7#=qc!&0^yhqyzc2)atop#at_foelv6g4*6=)if#r=@5=6mb
+```
+### Run
+
+That's it, we're finish the setup and now we can run some Django commands:
+
+```bash
+./manage.py migrate api
+./manage.py migrate 
+```
+
+Now we can finally make our Django project run:
+
+```bash
+./manage.py runserver
+```
+
+## Django
+
+In this section I'm going to describe how I setup this Django application.
+
+### Configuring Multiple Settings Files
 
 The settings will be divided in other files because this application will be runing in ours machines and a server when deployed.
 
@@ -48,18 +165,25 @@ So we want to tell Django to find settings as shows:
 In `manage.py` we determinate which configuration will be used for each environment:
 
 ```python
+from core.settings import base
+
 def main():
     if base.DEBUG:
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.local")
     else:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.production.py")
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.production")
 ```
 
 In `core.urls` we determine which configuration use for each environment.
 
 ```python
+from django.conf import settings
+from django.conf.urls.static import static
+
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += [
+        path("__debug__/", include("debug_toolbar.urls")),
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
 ### `local.py`
@@ -70,48 +194,41 @@ Settings related to local development
 
 Settings related to deployed application
 
-## Secret Key Generation
+### WSGI
 
-We are gona add our own secret key. Python brings a built-in tool which enables us to generate a secret key.
+#### Gunicorn
 
-In [Django Github repository][django-repo] we can find a function that`s going to provide a way of generating a random key.
+## Django Rest Framework
 
-To create we nedd to access the python shell using the comman:
+### Routers
 
-```bash
-$ python manage.py shell
-```
+Implement Routers
 
-and then:
+### Serializers
 
-```bash
-$ from django.core.management.utils import get_random_secret_key
-$ print(get_random_secret_key())
-```
+Implement serializer custumizations to customize data output
 
-## Configuring Environment Variables
+### API endpoints
 
-We gona use `python-dotenv` package to manage our environment variables.
+Document the API endpoints to support frontend interactions 
 
-In `base.py` file we will set this configuration:
 
-```python
-from dotenv import load_dotenv
+The back-end is developed using Django Rest Framework to provide an API which will be consumed by the Next.JS front-end application.
 
-load_dotenv()
-
-SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = os.environ.get('DEBUG')
-```
-
-The key will that we generated will be placed in our `.env` file.
 
 ## Tests
+
+@ Phase 4 - Buid unit and end-to-end tests to ensure the application works as intended
 
 - pytest
 - pytest_django
 
 ---
+
+Set static root settings - If using Django, Heroku will automatically generate your static files for you, so be sure to set the static root using STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles').
+Use psycopg2-binary for Postgres support - Add Postgres support to your application using the psycopg2-binary package. Be sure to pin it to the latest version (2.7.6.1 or higher).
+Use dj-database-url to set database URL - Import parse from dj_database_url and pass your Heroku database URL directly to your database settings without hard coding the URL.
+Use the whitenoise package to serve static assets - Avoid the need to rely on Nginx and allow your WSGI Python app to serve its own static files using the whitenoise package. It also works great behind a CDN.
 
 # Design
 
@@ -126,4 +243,6 @@ I'm using Figma to design the layout of this website.
 
 
 [django-repo]: https://github.com/django/django
+[next-repo]: https://github.com/Ewerton12F/test-website
+[railway]: https://teste-server-production.up.railway.app/api/services-list
 [vercel]: https://test-website-rho-three.vercel.app/
