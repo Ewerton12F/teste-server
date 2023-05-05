@@ -1,6 +1,6 @@
 from .base import *
 
-CORS_ORIGIN_WHITELIST = HOST
+CORS_ORIGIN_WHITELIST = (f"https://{HOST}", "https://test-website-ecru.vercel.app/")
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
