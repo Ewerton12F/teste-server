@@ -17,6 +17,8 @@ SECRET_KEY = env("SECRET_KEY")
 DATABASE_URL = env("DATABASE_URL")
 
 ALLOWED_HOSTS = [HOST]
+CSRF_TRUSTED_ORIGINS = [f"https://.{HOST}"]
+CORS_ORIGIN_WHITELIST = (f"https://{HOST}", "https://test-website-ecru.vercel.app")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
