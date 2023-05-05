@@ -1,6 +1,5 @@
-from django.test import TestCase
-
 from .models import Services
+from django.test import TestCase
 
 
 class ModelTesting(TestCase):
