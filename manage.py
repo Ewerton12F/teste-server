@@ -8,10 +8,10 @@ import sys
 
 def main():
     if base.DEBUG:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.local")
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.production")
 
     else:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.production")
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.local")
 
     try:
         from django.core.management import execute_from_command_line
