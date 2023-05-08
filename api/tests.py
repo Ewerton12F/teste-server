@@ -20,7 +20,7 @@ class ModelTesting(TestCase):
 class ServiceTests(APITestCase):
     def test_view_service(self):
         url = reverse("api:services-list")
-        response = self.client.get(url, format="json")
+        response = self.client.get(url, format="json", follow=True)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     #
