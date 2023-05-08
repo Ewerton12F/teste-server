@@ -11,6 +11,7 @@ jobs:
     environment: .env
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      HOST: ${{ secrets.HOST }}
 
     runs-on: ubuntu-latest
     strategy:
