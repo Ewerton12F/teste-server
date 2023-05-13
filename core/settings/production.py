@@ -1,6 +1,6 @@
 from .base import *
 
-ALLOWED_HOSTS += [HOST]
+ALLOWED_HOSTS += [HOST, "http://localhost:3000/"]
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
