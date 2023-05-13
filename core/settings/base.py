@@ -18,6 +18,10 @@ HOST = env("HOST")
 
 ALLOWED_HOSTS = []
 CSRF_TRUSTED_ORIGINS = []
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "https://test-website-ecru.vercel.app",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
