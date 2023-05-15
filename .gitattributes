@@ -1,4 +1,2 @@
-core/static/* linguist-detectable=false
-*.py linguist-detectable=true
-*.js linguist-detectable=false
-*.css linguist-detectable=false
+* linguist-vendored
+*.py linguist-vendored=false
