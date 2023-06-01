@@ -20,7 +20,7 @@ ALLOWED_HOSTS = []
 CSRF_TRUSTED_ORIGINS = []
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
-    "vercel.app",
+    "https://test-website-9z03v995p-ewerton12f.vercel.app/",
 ]
 
 INSTALLED_APPS = [
