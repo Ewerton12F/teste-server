@@ -20,6 +20,7 @@ ALLOWED_HOSTS = []
 CSRF_TRUSTED_ORIGINS = []
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
+    "https://www.robsonbatista.com",
     "https://test-website-ewerton12f.vercel.app",
 ]
 
